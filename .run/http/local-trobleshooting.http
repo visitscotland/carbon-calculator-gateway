@@ -1,3 +1,13 @@
+### Check dev environment (IP address)
+GET http://172.28.81.65:8082/info/health
+
+### Check dev environment (api.visitscotland.com)
+GET https://api.visitscotland.com/test/submit/ccg/info/health
+
+### Check dev environment (api.visitscotland.com)
+GET https://api.visitscotland.net/dev/submit/ccg/info/health
+
+
 ### Dummy submission
 POST http://localhost:8077/register
 Content-Type: application/json

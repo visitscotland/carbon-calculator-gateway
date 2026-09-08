@@ -11,7 +11,7 @@ GET http://localhost:8077/info/health
 Content-Type: application/json
 X-Request-Sent-At: {{$isoTimestamp}}
 
-### Submits a sample registration request (200)
+### 200 - Submits a sample registration request
 POST http://localhost:8077/register
 Content-Type: application/json
 
@@ -42,12 +42,12 @@ Content-Type: application/json
   "g-recaptcha-response":"03AFcWeA5gJEe3or5LX3lqRKfqvtbQQhqVjwvUe0O6KgERJmPVfCBLI2l0EjOEjuV4GAIRZ5Ju04uWmeQ2hVY4bjO_E2mx2NOLyKfaBapinMGOld7zUdHN5uk8dg5-ThfiBwAlyz8K6MIHZb_H6tCz0ju4zlNfwNFaDZvA03Aa7RUN_LiLh-hIWidMqORjZ2zAV-Wm_-PuPSqMTBFvrao6geqVBo2r8_qHIyJ9Glwox40AVPoUI657yfPj-LCqDjhuWntZrByVh_ZgEb36o-qVA7A68ClBGj7ouAsb8FzApwPlzoQavQKoKylkvGu7QrB-77v_r8NrcrO2EUQK8v1clgLATq5qvBZuZuqRtfN9IOkSk3igK0XOGmS4aeI-0LcLx6Kps39UFHpKL2NrTXa1PFKfRqxZtUBAc8niafByov5EKavsGudNjR-gapbL1zmJZWft85PfK3dOqh9y2gwQL2gZFzW56AXXO_VzB5lIh6FikuSaZ7TPyhf5vMBCPThzOi_0fHLMIH7NaVyBpUkejNGYuS3aQUBkEhQy8fKzgHxDWEGgJAqNXWXJrennhvGdD_jgefZEjm6zVt4iUuFmgi_-zfPtBXiDTUn3freCs4AqILYzMzNM9jdKs-oikt5qzeq_BJfabyVMlk9o-vgikDGQmc00WapOArN6Buu4zUGz4DYzN_lFsPirfPa6A9UM1pX3nrrVG1V1s"
 }
 
-### Submits a sample registration request with Validation errors (202)
+### 202 - Submits a sample registration request with Validation errors
 POST http://localhost:8077/register
 Content-Type: application/json
 
 {
-  "email":"developer+@visitscotland.com",
+  "email":"developer@visitscotland.com",
 
   "firstName": "José ほせ",
   "lastName": "Developer of VisitScotland",
@@ -67,13 +67,13 @@ Content-Type: application/json
   "g-recaptcha-response":"03AFcWeA5gJEe3or5LX3lqRKfqvtbQQhqVjwvUe0O6KgERJmPVfCBLI2l0EjOEjuV4GAIRZ5Ju04uWmeQ2hVY4bjO_E2mx2NOLyKfaBapinMGOld7zUdHN5uk8dg5-ThfiBwAlyz8K6MIHZb_H6tCz0ju4zlNfwNFaDZvA03Aa7RUN_LiLh-hIWidMqORjZ2zAV-Wm_-PuPSqMTBFvrao6geqVBo2r8_qHIyJ9Glwox40AVPoUI657yfPj-LCqDjhuWntZrByVh_ZgEb36o-qVA7A68ClBGj7ouAsb8FzApwPlzoQavQKoKylkvGu7QrB-77v_r8NrcrO2EUQK8v1clgLATq5qvBZuZuqRtfN9IOkSk3igK0XOGmS4aeI-0LcLx6Kps39UFHpKL2NrTXa1PFKfRqxZtUBAc8niafByov5EKavsGudNjR-gapbL1zmJZWft85PfK3dOqh9y2gwQL2gZFzW56AXXO_VzB5lIh6FikuSaZ7TPyhf5vMBCPThzOi_0fHLMIH7NaVyBpUkejNGYuS3aQUBkEhQy8fKzgHxDWEGgJAqNXWXJrennhvGdD_jgefZEjm6zVt4iUuFmgi_-zfPtBXiDTUn3freCs4AqILYzMzNM9jdKs-oikt5qzeq_BJfabyVMlk9o-vgikDGQmc00WapOArN6Buu4zUGz4DYzN_lFsPirfPa6A9UM1pX3nrrVG1V1s"
 }
 
-### Submits a sample registration request with Validation errors (401)
+### 401 - Submits a sample registration request with Validation errors
 POST http://localhost:8077/register
 Content-Type: application/json
 
 {}
 
-### User Already exists (409)
+### 409 - User Already exists
 POST http://localhost:8077/register
 Content-Type: application/json
 
@@ -91,7 +91,7 @@ Content-Type: application/json
   "g-recaptcha-response":"03AFcWeA5gJEe3or5LX3lqRKfqvtbQQhqVjwvUe0O6KgERJmPVfCBLI2l0EjOEjuV4GAIRZ5Ju04uWmeQ2hVY4bjO_E2mx2NOLyKfaBapinMGOld7zUdHN5uk8dg5-ThfiBwAlyz8K6MIHZb_H6tCz0ju4zlNfwNFaDZvA03Aa7RUN_LiLh-hIWidMqORjZ2zAV-Wm_-PuPSqMTBFvrao6geqVBo2r8_qHIyJ9Glwox40AVPoUI657yfPj-LCqDjhuWntZrByVh_ZgEb36o-qVA7A68ClBGj7ouAsb8FzApwPlzoQavQKoKylkvGu7QrB-77v_r8NrcrO2EUQK8v1clgLATq5qvBZuZuqRtfN9IOkSk3igK0XOGmS4aeI-0LcLx6Kps39UFHpKL2NrTXa1PFKfRqxZtUBAc8niafByov5EKavsGudNjR-gapbL1zmJZWft85PfK3dOqh9y2gwQL2gZFzW56AXXO_VzB5lIh6FikuSaZ7TPyhf5vMBCPThzOi_0fHLMIH7NaVyBpUkejNGYuS3aQUBkEhQy8fKzgHxDWEGgJAqNXWXJrennhvGdD_jgefZEjm6zVt4iUuFmgi_-zfPtBXiDTUn3freCs4AqILYzMzNM9jdKs-oikt5qzeq_BJfabyVMlk9o-vgikDGQmc00WapOArN6Buu4zUGz4DYzN_lFsPirfPa6A9UM1pX3nrrVG1V1s"
 }
 
-### Both Submission fail (503)
+### 500 - Both Submission fail
 POST http://localhost:8077/register
 Content-Type: application/json
 
