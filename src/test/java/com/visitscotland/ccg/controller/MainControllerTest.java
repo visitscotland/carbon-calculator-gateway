@@ -98,7 +98,7 @@ class MainControllerTest {
         ResponseEntity<RegisterResponse> response =
                 controller.register(TestData.simpleObjectNode(), request);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
 
         verify(bregService).sendRequest(any(), anyString(), eq(true));
     }
