@@ -11,12 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tools.jackson.databind.ObjectMapper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Profile({"dev", "debug"})
 @RequestMapping("/info")
 public class InfoController {
+
+    private static final ExecutorService HEALTH_CHECK_EXECUTOR =
+            Executors.newFixedThreadPool(3);
 
     private final ConfigurableEnvironment environment;
     private final BregClient bregClient;
@@ -55,13 +65,24 @@ public class InfoController {
 
         List<String[]> result = new ArrayList<>();
 
-        result.add(new String[]{"Trace API - authentication", time(traceApiClient::getAuthenticationToken)});
-        result.add(new String[]{"Trace API - /register", time(() ->
+        result.add(new String[]{"Trace API - authentication", timedOutRequest(traceApiClient::getAuthenticationToken).join()});
+        result.add(new String[]{"Trace API - /register", timedOutRequest(() ->
                 traceApiClient.register(objectMapper.createObjectNode(), "test")
-        )});
-        result.add(new String[]{"BREG", time(bregClient::healthCheck)});
+        ).join()});
+        result.add(new String[]{"BREG", timedOutRequest(bregClient::healthCheck).join()});
 
         return result;
+    }
+
+    /**
+     * Adds a timeout to the requests so the health endpoint responds in a timely basis
+     * @param action
+     * @return
+     */
+    private CompletableFuture<String> timedOutRequest(Runnable action) {
+        return CompletableFuture
+                .supplyAsync(() -> time(action), HEALTH_CHECK_EXECUTOR)
+                .completeOnTimeout("Timed out", 10, TimeUnit.SECONDS);
     }
 
     private String time(Runnable action) {
@@ -73,4 +94,8 @@ public class InfoController {
         }
         return String.format("%d ms", System.currentTimeMillis() - start);
     }
+
+
+
+
 }
