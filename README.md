@@ -126,40 +126,8 @@ CCG exposes a single endpoint.
 | POST   | `/register`        | Registers a business with Isla Carbon Calculator and records the submission in BloomReach Engagement via BREG. |
 | GET    | `/health`          | Health check endpoint used to verify that the application is running.                                          |
 | GET    | `/info/properties` | Displays the active application configuration. Available only when the dev profile is active.                  |
+| GET    | `/info/health`     | Displays the response times for Downstream services. Available only when the dev profile is active.            |
 
 
 
 For request and response examples, see [API Documentation](docs/api.md).
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-### Useful Log Messages
-
-### Frequently Asked Questions
-
----
-
-## Future Improvements
-
-- Message queue
-- Retry mechanism
-- Metrics
-- Monitoring
-
----
-
-## Contributing
-
-Coding standards
-
-Testing expectations
-
-Branch strategy
-
----
-
-## License
