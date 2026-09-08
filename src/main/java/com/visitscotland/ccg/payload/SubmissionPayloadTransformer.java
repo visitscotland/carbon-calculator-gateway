@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class SubmissionPayloadTransformer {
 
+    private static final String DELIMITER = "---";
     static final String SUBMISSION_ID = "vsUID";
 
     public ObjectNode transform(JsonNode payload, String submissionId, String[] removeFields) {
@@ -26,8 +27,6 @@ public class SubmissionPayloadTransformer {
 
         return modifiedPayload;
     }
-
-    private static final String DELIMITER = "---";
 
     /**
      * Normalises variant fields. Fields following the convention {@code <field>-<variant>} are converted to {@code <field>}
