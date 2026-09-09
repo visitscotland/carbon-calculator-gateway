@@ -1,16 +1,21 @@
 # Carbon Calculator Gateway (CCG)
 
-Carbon Calculator Gateway (CCG) is a Spring Boot microservice that acts as an integration layer between the Isla Carbon Calculator registration service and [BREG](https://github.com/visitscotland/breg) for user engagement and support.
+Carbon Calculator Gateway (CCG) is a Spring Boot microservice that acts as an integration layer between the Isla Carbon 
+Calculator registration service and [BREG](https://github.com/visitscotland/breg) for user engagement and support.
 
 ## Purpose
 
-The service allows users to register for an Isla Carbon Calculator assessment and advisory service. During the registration process, the submitted information is also forwarded to BloomReach Engagement to support follow-up communications, marketing activities, and user engagement tracking.
+The service allows users to register for an Isla Carbon Calculator assessment and advisory service. During the 
+registration process, the submitted information is also forwarded to BloomReach Engagement to support follow-up 
+communications, marketing activities, and user engagement tracking.
 
 ### Key Features
 
-* **Data-agnostic processing** – Only the fields required by the service are hardcoded. Additional fields can be submitted without requiring changes to the application.
+* **Data-agnostic processing** – Only the fields required to process the requests are defined. Additional fields can be 
+  submitted without requiring changes to the application.
 * **reCAPTCHA validation** – Validates submissions before they are processed.
-* **External service integration** – Integrates with Isla (via the Trace API) and BloomReach Engagement (via BREG), with built-in error handling.
+* **External service integration** – Integrates with Isla (via the Trace API) and BloomReach Engagement (via BREG), with 
+  built-in error handling.
 * **Error consolidation** – Aggregates errors from downstream services into a consistent response.
 * **Email notifications** – Sends notifications when submissions require manual intervention.
 
@@ -127,7 +132,5 @@ CCG exposes a single endpoint.
 | GET    | `/health`          | Health check endpoint used to verify that the application is running.                                          |
 | GET    | `/info/properties` | Displays the active application configuration. Available only when the dev profile is active.                  |
 | GET    | `/info/health`     | Displays the response times for Downstream services. Available only when the dev profile is active.            |
-
-
 
 For request and response examples, see [API Documentation](docs/api.md).
