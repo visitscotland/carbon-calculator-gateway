@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>vs-carbon-calculator-gateway</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>vs-carbon-calculator-gateway</name>
     <description>vs-carbon-calculator-gateway</description>
 
@@ -126,7 +126,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/visitscotland/carbon-calculator-gateway.git</connection>
-        <tag>vs-carbon-calculator-gateway-1.0.0</tag>
+        <tag>vs-carbon-calculator-gateway-1.0.1</tag>
     </scm>
 
 
