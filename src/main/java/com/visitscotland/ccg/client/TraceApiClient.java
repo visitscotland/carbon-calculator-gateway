@@ -67,7 +67,7 @@ public class TraceApiClient {
             }
         } catch (HttpClientErrorException e) {
             logger.error("Failed to authenticate with Trace API. Status code: {}, message: {}",
-                    e.getStatusCode(), e.getMessage());
+                    e.getStatusCode(), e.getMessage(), e);
             throw new TraceApiException("Failed to authenticate with Trace API. Status code: " + e.getStatusCode(), e);
         }
 

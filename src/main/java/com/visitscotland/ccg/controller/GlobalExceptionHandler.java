@@ -18,7 +18,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TraceApiException.class)
     public ResponseEntity<String> handleException(TraceApiException exception){
         if (exception.isApiError()) {
-            logger.error("{}\n\tCode: {}, message: {}", exception.getMessage(), exception.getStatusCode(), exception.getApiMessage());
+            logger.error("{}\n\tCode: {}, message: {}", exception.getMessage(), exception.getStatusCode(),
+                    exception.getApiMessage(), exception);
         } else {
             logger.error(exception.getMessage(), exception);
         }

@@ -64,7 +64,7 @@ public class BregClient {
             return response;
             
         } catch (Exception e) {
-            logger.error("Error sending request to BREG service: {}", e.getMessage());
+            logger.error("Error sending request to BREG service: {}", e.getMessage(), e);
             throw new VsException("Failed to send request to BREG service", e);
         }
     }
