@@ -32,6 +32,9 @@ public class RetryExecutor {
                 if (properties.getMaxAttempts() <= 1 || !shouldRetry(ex)){
                     throw ex;
                 } else if (attempt < properties.getMaxAttempts()) {
+                    //Note: If this message is registered in the logs frequently, this class should receive and log more context from the caller
+                    logger.info("A connection error occurred while attempting a service. Trying again after {} milliseconds."
+                            , properties.getMaxDelay());
                     sleep();
                 } else {
                     logger.warn("Max attempts reached for Retry Executor");
@@ -51,6 +54,7 @@ public class RetryExecutor {
 
     private void sleep() {
         try {
+
             Thread.sleep(properties.getMaxDelay());
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
