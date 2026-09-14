@@ -24,13 +24,15 @@ public class TraceApiClient {
     private final ObjectMapper objectMapper;
     private final TraceApiProperties properties;
     private final SubmissionPayloadTransformer transformer;
+    private final RetryExecutor retryExecutor;
 
     public TraceApiClient(RestTemplate restTemplate, ObjectMapper objectMapper, TraceApiProperties properties,
-                          SubmissionPayloadTransformer transformer) {
+                          SubmissionPayloadTransformer transformer, RetryExecutor retryExecutor) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.properties = properties;
         this.transformer = transformer;
+        this.retryExecutor = retryExecutor;
     }
 
     public ResponseEntity<ObjectNode> register(ObjectNode payload, String submissionId) throws VsException {
@@ -84,9 +86,6 @@ public class TraceApiClient {
 
     /**
      * Remove all non-necessary properties and includes the submissionId
-     * @param payload
-     * @param submissionId
-     * @return
      */
     private String sanitize(ObjectNode payload, String submissionId) {
         ObjectNode modifiedPayload = transformer.transform(payload, submissionId, properties.getRemoveProperties());
@@ -98,7 +97,9 @@ public class TraceApiClient {
         HttpEntity<String> entity = new HttpEntity<>(payload, getHeaders(token));
 
         try {
-            return restTemplate.exchange(url, HttpMethod.PUT, entity, ObjectNode.class);
+            return retryExecutor.execute(() ->
+                    restTemplate.exchange(url, HttpMethod.PUT, entity, ObjectNode.class)
+            );
         } catch (HttpClientErrorException e) {
             throw new TraceApiException("Error submitting to Trace API.", e);
         }
