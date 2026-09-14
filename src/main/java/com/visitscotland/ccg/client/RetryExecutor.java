@@ -40,7 +40,7 @@ public class RetryExecutor {
                     logger.warn("Max attempts reached for Retry Executor");
                 }
             }
-        } while (attempt++ <= properties.getMaxAttempts());
+        } while (attempt++ < properties.getMaxAttempts());
 
         throw lastException;
     }

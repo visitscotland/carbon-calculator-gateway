@@ -1,6 +1,7 @@
 package com.visitscotland.ccg.client;
 
 import com.visitscotland.ccg.config.BregProperties;
+import com.visitscotland.ccg.config.RetryExecutorProperties;
 import com.visitscotland.ccg.exception.VsException;
 import com.visitscotland.ccg.payload.SubmissionPayloadTransformer;
 import com.visitscotland.ccg.testutil.TestData;
@@ -52,7 +53,8 @@ class BregClientTest {
         properties.setEnabled(true);
         properties.setServiceUrl(URL);
 
-        service = new BregClient(restTemplate, objectMapper, transformer, properties);
+        service = new BregClient(restTemplate, objectMapper, transformer, properties,
+                new RetryExecutor(new RetryExecutorProperties(1,0L)));
     }
 
     @Test

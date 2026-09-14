@@ -6,7 +6,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class RetryExecutorProperties {
 
     private Integer maxAttempts;
-    private Integer maxDelay;
+    private Long maxDelay;
+
+    public RetryExecutorProperties() {
+
+    }
+
+    public RetryExecutorProperties(Integer maxAttempts, Long maxDelay) {
+        this.maxAttempts = maxAttempts;
+        this.maxDelay = maxDelay;
+    }
 
     public Integer getMaxAttempts() {
         return maxAttempts;
@@ -16,11 +25,11 @@ public class RetryExecutorProperties {
         this.maxAttempts = maxAttempts;
     }
 
-    public Integer getMaxDelay() {
+    public Long getMaxDelay() {
         return maxDelay;
     }
 
-    public void setMaxDelay(Integer maxDelay) {
+    public void setMaxDelay(Long maxDelay) {
         this.maxDelay = maxDelay;
     }
 }
