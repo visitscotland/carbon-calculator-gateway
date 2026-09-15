@@ -21,12 +21,16 @@ public class BregClient {
     private final ObjectMapper objectMapper;
     private final SubmissionPayloadTransformer payloadTransformer;
     private final BregProperties properties;
+    private final RetryExecutor retryExecutor;
 
-    public BregClient(RestTemplate restTemplate, ObjectMapper objectMapper, SubmissionPayloadTransformer payloadTransformer, BregProperties properties) {
+    public BregClient(RestTemplate restTemplate, ObjectMapper objectMapper,
+                      SubmissionPayloadTransformer payloadTransformer, BregProperties properties,
+                      RetryExecutor retryExecutor) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.payloadTransformer = payloadTransformer;
         this.properties = properties;
+        this.retryExecutor = retryExecutor;
     }
 
     public void healthCheck() {
@@ -52,28 +56,31 @@ public class BregClient {
                 sanitize(payload, submissionId, traceApiFailure),
                 getHeaders()
             );
-            
+
             // Send POST request
-            ResponseEntity<String> response = restTemplate.postForEntity(
-                properties.getServiceUrl(),
-                requestEntity, 
-                String.class
-            );
+            ResponseEntity<String> response = register(requestEntity);
             
             logger.info("BREG service response status: {}", response.getStatusCode());
             return response;
             
         } catch (Exception e) {
-            logger.error("Error sending request to BREG service: {}", e.getMessage());
+            logger.error("Error sending request to BREG service: {}", e.getMessage(), e);
             throw new VsException("Failed to send request to BREG service", e);
         }
     }
 
+    public ResponseEntity<String> register(HttpEntity<String> requestEntity) {
+        return retryExecutor.execute(() ->
+                restTemplate.postForEntity(
+                        properties.getServiceUrl(),
+                        requestEntity,
+                        String.class
+                )
+        );
+    }
+
     /**
      * Remove all non-necessary properties and includes the submissionId
-     * @param payload
-     * @param submissionId
-     * @return
      */
     private String sanitize(JsonNode payload, String submissionId, boolean traceApiFailure) {
         ObjectNode modifiedPayload = payloadTransformer.transform(payload, submissionId, properties.getRemoveProperties());
