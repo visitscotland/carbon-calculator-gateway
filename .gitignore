@@ -1,11 +1,6 @@
 target/
 report/owasp
-!.mvn/wrapper/maven-wrapper.jar
-
-
-.mvn
-mvnw
-mvnw.cmd
+.log
 
 ### STS ###
 .apt_generated

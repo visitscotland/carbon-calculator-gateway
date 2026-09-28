@@ -1,5 +1,6 @@
 package com.visitscotland.ccg.client;
 
+import com.visitscotland.ccg.config.RetryExecutorProperties;
 import com.visitscotland.ccg.payload.SubmissionPayloadTransformer;
 import com.visitscotland.ccg.testutil.TestData;
 import com.visitscotland.ccg.config.TraceApiProperties;
@@ -53,7 +54,8 @@ class TraceApiClientTest {
         properties.setEnabled(true);
         properties.setRemoveProperties(new String[]{"removeMe"});
 
-        service = new TraceApiClient(restTemplate, objectMapper, properties, transformer);
+        service = new TraceApiClient(restTemplate, objectMapper, properties, transformer,
+                new RetryExecutor(new RetryExecutorProperties(1,0L)));
     }
 
     @Test
